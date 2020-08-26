@@ -135,6 +135,10 @@
                 collapsible = this.options.collapsible;
             }
 
+            if (!Alpaca.isEmpty(this.schema.collapsible)) {
+                collapsible = this.schema.collapsible;
+            }
+
             this.options.collapsible = collapsible;
 
             var legendStyle = "button";
