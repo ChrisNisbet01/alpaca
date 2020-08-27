@@ -506,6 +506,10 @@
                 propertyOptions = _this.options.fields[propertyId];
             }
 
+            if (_this.schema && _this.schema.web_ui_options && _this.schema.web_ui_options[propertyId]) {
+                propertyOptions = _this.schema.web_ui_options[propertyId];
+            }
+
             // handle $ref
             var propertyReferenceId = null;
             if (propertySchema) {

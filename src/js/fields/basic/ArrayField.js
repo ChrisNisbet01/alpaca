@@ -615,6 +615,10 @@
             if (!itemOptions && _this.options && _this.options.items) {
                 itemOptions = _this.options.items;
             }
+            if (_this.schema && _this.schema.web_ui_options) {
+                itemOptions = _this.schema.web_ui_options;
+            }
+
             var itemSchema;
             if (_this.schema && _this.schema.items) {
                 itemSchema = _this.schema.items;

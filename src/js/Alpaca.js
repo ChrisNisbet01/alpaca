@@ -3062,6 +3062,42 @@
             }
         }
 
+        if (referenceId.indexOf("/") === 0)
+        {
+            // this is a property path relative to the root of the current schema
+            referenceId = referenceId.substring(1);
+
+            // split into tokens
+            var tokens = referenceId.split("/");
+
+            var defSchema = options;
+            for (var i = 0; i < tokens.length; i++)
+            {
+                var token = tokens[i];
+
+                // schema
+                if (defSchema[token])
+                {
+                    defSchema = defSchema[token];
+                } else if (defSchema.properties && defSchema.properties[token])
+                {
+                    defSchema = defSchema.properties[token];
+                } else if (defSchema.definitions && defSchema.definitions[token])
+                {
+                    defSchema = defSchema.definitions[token];
+                } else
+                {
+                    defSchema = null;
+                    break;
+                }
+            }
+
+            if (defSchema)
+            {
+                return defSchema;
+            }
+        }
+
         return null;
     };
 
