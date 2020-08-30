@@ -1,18 +1,18 @@
 /**
- * Twitter Bootstrap Theme ("bootstrap")
+ * Twitter Bootstrap Theme ("bootstrapniz")
  *
  * Defines the Alpaca theme for Twitter Bootstrap v3.
  *
  * The views are:
  *
- *    bootstrap-view
- *    bootstrap-edit
- *    bootstrap-create
+ *    bootstrapniz-view
+ *    bootstrapniz-edit
+ *    bootstrapniz-create
  *
  * This theme can also be selected by specifying the following view:
  *
  *    {
- *       "ui": "bootstrap",
+ *       "ui": "bootstrapniz",
  *       "type": "view" | "edit" | "create"
  *    }
  *
@@ -201,11 +201,11 @@
     };
 
     Alpaca.registerView({
-        "id": "bootstrap-display",
+        "id": "bootstrapniz-display",
         "parent": "web-display",
         "type": "display",
-        "ui": "bootstrap",
-        "title": "Display View for Bootstrap 3",
+        "ui": "bootstrapniz",
+        "title": "Display View for Bootstrap 3 (Niz version)",
         "displayReadonly": true,
         "callbacks": callbacks,
         "styles": styles,
@@ -213,17 +213,17 @@
     });
 
     Alpaca.registerView({
-        "id": "bootstrap-display-horizontal",
-        "parent": "bootstrap-display",
+        "id": "bootstrapniz-display-horizontal",
+        "parent": "bootstrapniz-display",
         "horizontal": true
     });
 
     Alpaca.registerView({
-        "id": "bootstrap-edit",
+        "id": "bootstrapniz-edit",
         "parent": "web-edit",
         "type": "edit",
-        "ui": "bootstrap",
-        "title": "Edit View for Bootstrap 3",
+        "ui": "bootstrapniz",
+        "title": "Edit View for Bootstrap 3 (Niz version)",
         "displayReadonly": true,
         "callbacks": callbacks,
         "styles": styles,
@@ -231,22 +231,22 @@
     });
 
     Alpaca.registerView({
-        "id": "bootstrap-edit-horizontal",
-        "parent": "bootstrap-edit",
+        "id": "bootstrapniz-edit-horizontal",
+        "parent": "bootstrapniz-edit",
         "horizontal": true
     });
 
     Alpaca.registerView({
-        "id": "bootstrap-create",
-        "parent": "bootstrap-edit",
-        "title": "Create View for Bootstrap 3",
+        "id": "bootstrapniz-create",
+        "parent": "bootstrapniz-edit",
+        "title": "Create View for Bootstrap 3 (Niz version)",
         "type": "create",
         "displayReadonly": false
     });
 
     Alpaca.registerView({
-        "id": "bootstrap-create-horizontal",
-        "parent": "bootstrap-create",
+        "id": "bootstrapniz-create-horizontal",
+        "parent": "bootstrapniz-create",
         "horizontal": true
     });
 
