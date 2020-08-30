@@ -146,7 +146,8 @@ var paths = {
             "src/js/views/web.js",
             "src/js/views/jqueryui.js",
             "src/js/views/jquerymobile.js",
-            "src/js/views/bootstrap.js"
+            "src/js/views/bootstrap.js",
+            "src/js/views/bootstrapniz.js"
         ],
         web: [
             "build/tmp/templates-web.js",
@@ -170,6 +171,12 @@ var paths = {
             "build/tmp/scripts-core.js",
             "src/js/views/web.js",
             "src/js/views/bootstrap.js"
+        ],
+        bootstrapniz: [
+            "build/tmp/templates-bootstrapniz.js",
+            "build/tmp/scripts-core.js",
+            "src/js/views/web.js",
+            "src/js/views/bootstrapniz.js"
         ]
     },
     templates: {
@@ -202,6 +209,14 @@ var paths = {
             "src/templates/bootstrap-edit/**/*.html",
             "src/templates/bootstrap-create/**/*.html"
         ],
+        bootstrapniz: [
+            "src/templates/web-display/**/*.html",
+            "src/templates/web-edit/**/*.html",
+            "src/templates/web-create/**/*.html",
+            "src/templates/bootstrapniz-display/**/*.html",
+            "src/templates/bootstrapniz-edit/**/*.html",
+            "src/templates/bootstrapniz-create/**/*.html"
+        ],
         all: [
             "src/templates/**/*.html"
         ]
@@ -219,6 +234,11 @@ var paths = {
             "src/css/alpaca-core.css",
             "src/css/alpaca-fields.css",
             "src/css/alpaca-bootstrap.css"
+        ],
+        bootstrapniz: [
+            "src/css/alpaca-core.css",
+            "src/css/alpaca-fields.css",
+            "src/css/alpaca-bootstrapniz.css"
         ],
         jquerymobile: [
             "src/css/alpaca-core.css",
@@ -291,6 +311,18 @@ gulp.task("build-templates", function(cb)
             .pipe(concat('templates-bootstrap.js'))
             .pipe(gulp.dest('build/tmp/')),
 
+        // bootstrapniz
+        gulp.src(paths.templates["bootstrapniz"])
+            .pipe(handlebars({ handlebars: require('handlebars') }))
+            .pipe(wrap('Handlebars.template(<%= contents %>)'))
+            .pipe(declare({
+                namespace: 'HandlebarsPrecompiled',
+                processName: processName,
+                noRedeclare: true
+            }))
+            .pipe(concat('templates-bootstrapniz.js'))
+            .pipe(gulp.dest('build/tmp/')),
+
         // jqueryui
         gulp.src(paths.templates["jqueryui"])
             .pipe(handlebars({ handlebars: require('handlebars') }))
@@ -359,6 +391,25 @@ gulp.task("build-scripts", function(cb) {
         template: wrapper,
         defaultView: 'bootstrap'
     };
+    var bootstrapniz_wrap = {
+        deps: [{
+            "name": "jquery",
+            "globalName": "jQuery",
+            "paramName": "$"
+        }, {
+            "name": "handlebars",
+            "globalName": "Handlebars",
+            "paramName": "Handlebars"
+        }, {
+            "name": "bootstrap",
+            "globalName": "Bootstrap-Niz",
+            "paramName": "Bootstrap-Niz"
+        }],
+        namespace: "Alpaca",
+        exports: "Alpaca",
+        template: wrapper,
+        defaultView: 'bootstrapniz'
+    };
     var jqueryui_warp = {
         deps: [{
             "name": "jquery",
@@ -426,6 +477,15 @@ gulp.task("build-scripts", function(cb) {
                 .pipe(uglify())
                 .pipe(gulp.dest('build/alpaca/bootstrap')),
 
+            // bootstrapniz
+            gulp.src(paths.scripts.bootstrapniz)
+                .pipe(concat('alpaca.js'))
+                .pipe(wrapUmd(bootstrap_wrap))
+                .pipe(gulp.dest('build/alpaca/bootstrapniz'))
+                .pipe(concat('alpaca.min.js'))
+                .pipe(uglify())
+                .pipe(gulp.dest('build/alpaca/bootstrapniz')),
+
             // jqueryui
             gulp.src(paths.scripts.jqueryui)
                 .pipe(concat('alpaca.js'))
@@ -477,6 +537,16 @@ gulp.task("build-styles", function(cb) {
                 .pipe(gulp.dest('build/alpaca/bootstrap')),
             gulp.src("src/css/images/**")
                 .pipe(gulp.dest('./build/alpaca/bootstrap/images')),
+
+            // bootstrap
+            gulp.src(paths.styles.bootstrapniz)
+                .pipe(concat('alpaca.css'))
+                .pipe(gulp.dest('build/alpaca/bootstrapniz'))
+                .pipe(rename({suffix: ".min"}))
+                .pipe(minifyCss())
+                .pipe(gulp.dest('build/alpaca/bootstrapniz')),
+            gulp.src("src/css/images/**")
+                .pipe(gulp.dest('./build/alpaca/bootstrapniz/images')),
 
             // jqueryui
             gulp.src(paths.styles.jqueryui)
