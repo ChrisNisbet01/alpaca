@@ -214,11 +214,13 @@
 
         adjustSubmitButtonState: function()
         {
-            this.disableSubmitButton();
-
             if (this.isFormValid())
             {
                 this.enableSubmitButton();
+            }
+            else
+            {
+                this.disableSubmitButton();
             }
         },
 
