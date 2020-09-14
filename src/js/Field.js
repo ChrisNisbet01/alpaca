@@ -2172,12 +2172,13 @@
          * @param schemaType
          * @returns {Array}
          */
-        getControlsBySchemaType: function(schemaType) {
+        getControlsBySchemaType: function(schemaType, maxDepth=0) {
 
             var array = [];
 
             if (schemaType)
             {
+                var currentDepth = 0;
                 var f = function(parent, schemaType, array)
                 {
                     for (var i = 0; i < parent.children.length; i++)
@@ -2187,13 +2188,20 @@
                             array.push(parent.children[i]);
                         }
 
-                        if (parent.children[i].isContainer())
+                        if (maxDepth == 0 || currentDepth < maxDepth)
                         {
-                            f(parent.children[i], schemaType, array);
+                            currentDepth++;
+                            if (parent.children[i].isContainer())
+                            {
+                                f(parent.children[i], schemaType, array);
+                            }
+                            currentDepth--;
                         }
                     }
                 };
+                currentDepth++;
                 f(this, schemaType, array);
+                currentDepth--;
             }
 
             return array;
